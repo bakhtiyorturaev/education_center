@@ -11,10 +11,10 @@
             </div>
 
             <div class="hero-section__search">
-                <form class="form" action="#" method="get">
+                <form class="form" action="{% url 'profiles' %}" method="get">
                     <div class="form__field">
                         <label for="formInput#search">Bitiruvchilarni top </label>
-                        <input class="input input--text" id="formInput#search" type="text" name="text"
+                        <input class="input input--text" id="formInput#search" type="text" name="q"
                             placeholder="Bitiruvchi ismi bilan top" />
                     </div>
 
@@ -27,7 +27,7 @@
     <section class="devlist">
         <div class="container">
             <div class="grid grid--three">
-                {% for user in users %}
+                {% for user in users_page %}
                 <div class="column card">
                     <div class="dev">
                         <a href="{% url 'profile' user.id %}" class="card__body">
@@ -58,21 +58,33 @@
         </div>
     </section>
 
-    <div class="pagination">
-        <ul class="container">
-            <li><a href="#" class="btn btn--disabled">&#10094; Orqaga</a></li>
-            <li><a href="#" class="btn btn--sub">01</a></li>
-            <li><a href="#" class="btn">02</a></li>
-            <li><a href="#" class="btn">03</a></li>
-            <li><a href="#" class="btn">04</a></li>
-            <li><a href="#" class="btn">05</a></li>
-            <li><a href="#" class="btn">06</a></li>
-            <li><a href="#" class="btn">07</a></li>
-            <li><a href="#" class="btn">08</a></li>
-            <li><a href="#" class="btn">09</a></li>
-            <li><a href="#" class="btn">10</a></li>
-            <li><a href="#" class="btn">Oldinga &#10095;</a></li>
-        </ul>
-    </div>
+
+<div class="pagination">
+    <ul class="container">
+        {% if users_page.has_previous %}
+            <li><a href="?page=1" class="btn">&#10094; Orqaga</a></li>
+        {% endif %}
+        {% if 1 not in page_numbers %}
+            <li><span class="btn btn--sub">1</span></li>
+            {% if 2 not in page_numbers %}
+                <li><span class="btn">...</span></li>
+            {% endif %}
+        {% endif %}
+        {% for page_num in page_numbers %}
+            <li><a href="?page={{ page_num }}" class="btn{% if current_page == page_num %} btn--sub{% endif %}">{{ page_num }}</a></li>
+        {% endfor %}
+        {% if max_pages not in page_numbers %}
+            {% if max_pages|add:'-1' not in page_numbers %}
+                <li><span class="btn">...</span></li>
+            {% endif %}
+            <li><a href="?page={{ max_pages }}" class="btn">{{ max_pages }}</a></li>
+        {% endif %}
+        {% if users_page.has_next %}
+            <li><a href="?page={{ max_pages }}" class="btn">Oldinga &#10095;</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+
 </main>
 {% endblock %}
