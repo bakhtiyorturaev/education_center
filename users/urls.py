@@ -10,4 +10,6 @@ urlpatterns = [
     path("account/", account, name="account"),
     path("account_edit/", account_edit, name="account_edit"),
     path("profiles/<str:id>", profile, name="profile"),
+    path("account/skills_add/", skills, name="skills_add"),
+
 ]

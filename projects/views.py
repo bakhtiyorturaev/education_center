@@ -2,19 +2,33 @@ from django.shortcuts import redirect, render
 from .models import *
 from .forms import ProjectForm
 from django.contrib.auth.decorators import login_required
-
-
-# Create your views here.
+from django.core.paginator import Paginator
 
 
 def projects(request):
+    projects_list = Project.objects.filter(project_review__isnull=True)
+
+    page_number = request.GET.get('page')
+    paginator = Paginator(projects_list, 3)
+    projects = paginator.get_page(page_number)
+
     reviews_p = Review.objects.filter(value="+")
     reviews_m = Review.objects.filter(value="-")
-    projects = Project.objects.filter(project_review__isnull=True)
+
+    max_pages = paginator.num_pages
+    current_page = projects.number
+    start_page = max(current_page - 5, 1)
+    end_page = min(current_page + 4, max_pages)
+    page_numbers = range(start_page, end_page + 1)
+
     context = {
         "projects": projects,
         "reviews_p": reviews_p,
-        "reviews_m": reviews_m
+        "reviews_m": reviews_m,
+
+        "page_numbers": page_numbers,
+        "max_pages": max_pages,
+        "current_page": current_page
     }
     return render(request, "projects/projects.html", context)
 

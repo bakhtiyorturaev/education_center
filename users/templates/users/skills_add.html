@@ -8,6 +8,17 @@
             <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
             <br>
 
+            <h2>Malaka qo'shish</h2>
+<!--            <h5>{{ user.username }}</h5>-->
+
+<!--             Select User -->
+<!--            <div class="form__field">-->
+<!--                <label for="user"></label>-->
+<!--                <select name="user" id="user">-->
+<!--                    <option value="{{ user.id }}">{{ user.username }}</option>-->
+<!--                </select>-->
+<!--            </div>-->
+
             <form class="form" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- Input:Text -->
@@ -18,9 +29,10 @@
                 </div>
                 {% endfor %}
 
-                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Saqlash" />
+                <!-- Submit Button -->
+                <input class="btn btn--sub btn--lg my-md" type="submit" value="Saqlash" />
             </form>
         </div>
     </div>
 </main>
-{% endblock %}
+{% endblock content %}

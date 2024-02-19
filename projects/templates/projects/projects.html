@@ -58,23 +58,32 @@
             </div>
         </div>
     </section>
+<div class="pagination">
+    <ul class="container">
+        {% if projects.has_previous %}
+            <li><a href="?page={{ projects.number|add:-1 }}" class="btn">&#10094; Orqaga</a></li>
+        {% endif %}
+        {% if 1 not in projects.paginator.page_range %}
+        <li><a class="btn " href="?page={{ page_num }}">1</a></li>
+            {% if 2 not in projects.paginator.page_range %}
+                <li><span class="btn">...</span></li>
+            {% endif %}
+        {% endif %}
+        {% for num in projects.paginator.page_range %}
+            <li><a href="?page={{ num }}" class="btn{% if projects.number == num %} btn--sub{% endif %}">{{ num }}</a></li>
+        {% endfor %}
+        {% if max_pages not in projects.paginator.page_range %}
+            {% if max_pages|add:'-1' not in projects.paginator.page_range %}
+                <li><span class="btn">...</span></li>
+            {% endif %}
+            <li><a href="?page={{ max_pages }}" class="btn">{{ max_pages }}</a></li>
+        {% endif %}
+        {% if projects.has_next %}
+            <li><a href="?page={{ projects.number|add:1 }}" class="btn">&#10095; Oldinga</a></li>
+        {% endif %}
+    </ul>
+</div>
 
-    <div class="pagination">
-        <ul class="container">
-            <li><a href="#" class="btn btn--disabled">&#10094; Orqaga</a></li>
-            <li><a href="#" class="btn btn--sub">01</a></li>
-            <li><a href="#" class="btn">02</a></li>
-            <li><a href="#" class="btn">03</a></li>
-            <li><a href="#" class="btn">04</a></li>
-            <li><a href="#" class="btn">05</a></li>
-            <li><a href="#" class="btn">06</a></li>
-            <li><a href="#" class="btn">07</a></li>
-            <li><a href="#" class="btn">08</a></li>
-            <li><a href="#" class="btn">09</a></li>
-            <li><a href="#" class="btn">10</a></li>
-            <li><a href="#" class="btn">Oldinga &#10095;</a></li>
-        </ul>
-    </div>
 </main>
 
 {% endblock %}

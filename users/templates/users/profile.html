@@ -39,7 +39,7 @@
                             </li>
                             {% endif %}
                         </ul>
-                        <a href="#" class="btn btn--sub btn--lg">Habar jo'nating </a>
+                        <a href="mailto:{{ user.email }}" class="btn btn--sub btn--lg">Habar jo'nating </a>
                     </div>
                 </div>
             </div>
@@ -54,39 +54,24 @@
                     <h3 class="devInfo__title">Malakalari</h3>
                     <div class="devInfo__skills">
 
-                        {% for skill in user.skill_set.all %}
+                        {% for skill in user.skills.all %}
                         <div class="devSkill">
                             <h4 class="devSkill__title">{{skill.name}}</h4>
-                            <p class="devSkill__info">
-                                {{skill.description}}
-                            </p>
+                            <p class="devSkill__info">{{skill.description}}</p>
                         </div>
                         {% endfor %}
 
-
                         <h3 class="devInfo__subtitle">Boshqa malakalar</h3>
                         <div class="devInfo__otherSkills">
-                            <span class="tag tag--pill tag--sub tag--lg">
-                                <small>HTML</small>
-                            </span>
-                            <span class="tag tag--pill tag--sub tag--lg">
-                                <small>CSS</small>
-                            </span>
-                            <span class="tag tag--pill tag--sub tag--lg">
-                                <small>Bootstrap</small>
-                            </span>
-                            <span class="tag tag--pill tag--sub tag--lg">
-                                <small>Sqlite</small>
-                            </span>
-                            <span class="tag tag--pill tag--sub tag--lg">
-                                <small>Postgres</small>
-                            </span>
-                            <span class="tag tag--pill tag--sub tag--lg">
-                                <small>MongoDB</small>
-                            </span>
+                            {% for skill in user.skills.all %}
+                                <span class="tag tag--pill tag--sub tag--lg">
+                                    <small>{{ skill.name }}</small>
+                                </span>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="devInfo">
                     <h3 class="devInfo__title">Loyihalar</h3>
                     <div class="grid grid--two">

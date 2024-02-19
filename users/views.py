@@ -1,6 +1,6 @@
 from email import message
 from django.shortcuts import redirect, render
-from .models import Profil
+from .models import Profil, Skill
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from django.contrib import messages
@@ -121,3 +121,21 @@ def account_edit(request):
         "form": form
     }
     return render(request, "users/account_edit.html", context)
+
+
+login_required(login_url='login')
+
+
+def skills(request):
+    if request.method == "POST":
+        form = SkillCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.user = request.user.profil
+            user.save()
+            return redirect('account')
+    form = SkillCreationForm()
+    context = {
+        "form": form
+    }
+    return render(request, 'users/skills_add.html', context=context)
