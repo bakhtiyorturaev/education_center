@@ -1,3 +1,4 @@
+# log admin3 pass Adm20011
 """
 Django settings for config project.
 

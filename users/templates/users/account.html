@@ -8,7 +8,7 @@
             <div class="column column--1of3">
                 <div class="card text-center">
                     <div class="card__body dev">
-                        <img class="avatar avatar--xl dev__avatar" src="{{profil.image.url}}" />
+                        <img class="avatar avatar--xl dev__avatar" src="{{ profil.image.url}}" />
                         <h2 class="dev__name">{{profil.name}}</h2>
                         <p class="dev__title">{{profil.info}}</p>
                         <p class="dev__location">{{profil.location}}</p>
@@ -48,12 +48,11 @@
                 </div>
                 <div class="settings">
                     <h3 class="settings__title">Malakalarim</h3>
-                    <a class="tag tag--pill tag--sub settings__btn tag--lg" href="skills_add"><i class="im im-plus"></i> Malaka
+                    <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'skills_add' %}"><i class="im im-plus"></i> Malaka
                         qo'shish</a>
                 </div>
-
                 <table class="settings__table">
-                    {% for skill in profil.skills.all %}
+                    {% for skill in profil.skill.all %}
                     <tr>
                         <td class="settings__tableInfo">
                             <h4>{{skill.name}}</h4>
@@ -62,8 +61,8 @@
                             </p>
                         </td>
                         <td class="settings__tableActions">
-                            <a class="tag tag--pill tag--main settings__btn" href="#"><i class="im im-edit"></i>O'zgartirish</a>
-                            <a class="tag tag--pill tag--main settings__btn" href="#"><i class="im im-x-mark-circle-o"></i>O'chirish</a>
+                            <a class="tag tag--pill tag--main settings__btn" href="{% url 'skill_edit' skill.id %}"><i class="im im-edit"></i>O'zgartirish</a>
+                            <a class="tag tag--pill tag--main settings__btn" href="{% url 'skill_delete' skill.id %}"><i class="im im-x-mark-circle-o"></i>O'chirish</a>
                         </td>
                     </tr>
                     {% endfor %}

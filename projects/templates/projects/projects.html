@@ -9,7 +9,7 @@
     <section class="hero-section text-center">
         <div class="container container--narrow">
             <div class="hero-section__box">
-                <h2> <span>Loyihalarni</span> qidirib top</h2>
+                <h2> <span>Loyihalarni</span> qidiring</h2>
             </div>
 
             <div class="hero-section__search">
@@ -17,10 +17,10 @@
                     <div class="form__field">
                         <label for="formInput#search">Loyihalarni qidir </label>
                         <input class="input input--text" id="formInput#search" type="text" name="text"
-                            placeholder="Loyihalar nomi bilan qidir" />
+                            placeholder="Loyiha nomi bilan qidiring" />
                     </div>
 
-                    <input class="btn btn--sub btn--lg" type="submit" value="Qidir" />
+                    <input class="btn btn--sub btn--lg" type="submit" value="Qidiruv" />
                 </form>
             </div>
         </div>
@@ -36,9 +36,9 @@
                             <img class="project__thumbnail" src="{{project.image.url}}" alt="project thumbnail" />
                             <div class="card__body">
                                 <h3 class="project__title">{{project.title}}</h3>
-                                <p><a class="project__author" href="profile.html">Abduvosiqov Asror</a></p>
+                                <p><a class="project__author" href="profile.html">{{ project.user }}</a></p>
                                 <p class="project--rating">
-                                    <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Yaxshi baho
+                                    <span style="font-weight: bold;">{{project.vote_ratio}}%</span>
                                     ({{project.vote_count}} Ovoz)
                                 </p>
                                 <div class="project__tags">
@@ -47,14 +47,12 @@
                                         <small>{{tag}}</small>
                                     </span>
                                     {% endfor %}
-
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
                 {% endfor %}
-
             </div>
         </div>
     </section>
@@ -85,5 +83,4 @@
 </div>
 
 </main>
-
 {% endblock %}

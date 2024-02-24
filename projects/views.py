@@ -49,7 +49,7 @@ def project_add(request):
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
-            project.user = request.user.profil
+            project.user = Profil.objects.get(user=request.user)
             project.save()
             return redirect('projects')
     form = ProjectForm()

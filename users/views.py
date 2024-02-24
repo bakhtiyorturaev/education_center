@@ -1,5 +1,5 @@
 from email import message
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Profil, Skill
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
@@ -18,7 +18,7 @@ def profiles(request):
         users = users.filter(name__icontains=profile)
 
     page_number = request.GET.get('page')
-    paginator = Paginator(users, 1)
+    paginator = Paginator(users, 6)
     users_page = paginator.get_page(page_number)
 
     max_pages = paginator.num_pages
@@ -38,8 +38,10 @@ def profiles(request):
 
 def profile(request, id):
     user = Profil.objects.get(id=id)
+    skills = Skill.objects.filter(user=user)
     context = {
-        "user": user
+        "user": user,
+        "skills": skills
     }
     return render(request, 'users/profile.html', context)
 
@@ -100,7 +102,11 @@ def register_user(request):
 
 @login_required(login_url='login')
 def account(request):
-    profil = request.user.profil
+    try:
+        profil = Profil.objects.get(user=request.user)
+    except Profil.DoesNotExist:
+        messages.error(request, 'profil malumotlari topilmadi')
+        return redirect('projects')
     context = {
         "profil": profil
     }
@@ -109,14 +115,14 @@ def account(request):
 
 @login_required(login_url='login')
 def account_edit(request):
-    profil = request.user.profil
-    form = CustomProfilCreationForm(instance=profil)
+    user = request.user
+    profil = Profil.objects.get(user=user)
+    form = CustomProfilCreationForm(instance=profil.user)
     if request.method == "POST":
         form = CustomProfilCreationForm(request.POST, request.FILES, instance=profil)
         if form.is_valid():
             form.save()
             return redirect('account')
-
     context = {
         "form": form
     }
@@ -126,16 +132,42 @@ def account_edit(request):
 login_required(login_url='login')
 
 
-def skills(request):
+def skills_add(request):
     if request.method == "POST":
         form = SkillCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.user = request.user.profil
-            user.save()
+            skill = form.save(commit=False)
+            skill.user = Profil.objects.get(user=request.user)
+            skill.save()
             return redirect('account')
-    form = SkillCreationForm()
+    else:
+        form = SkillCreationForm()
     context = {
         "form": form
     }
     return render(request, 'users/skills_add.html', context=context)
+
+
+@login_required(login_url='login')
+def skill_edit(request, skill_id):
+    skill = get_object_or_404(Skill, id=skill_id)
+    if request.method == "POST":
+        form = SkillCreationForm(request.POST, instance=skill)
+        if form.is_valid():
+            form.save()
+            return redirect('account')
+    else:
+        form = SkillCreationForm(instance=skill)
+    context = {
+        "form": form,
+        "skill": skill
+    }
+    return render(request, 'users/skill_edit.html', context=context)
+
+
+@login_required(login_url='login')
+def skill_delete(request, skill_id):
+    skill = get_object_or_404(Skill, id=skill_id)
+    skill.delete()
+    return redirect('account')
+
