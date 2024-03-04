@@ -9,29 +9,29 @@
                 <div class="card text-center">
                     <div class="card__body dev">
                         <img class="avatar avatar--xl dev__avatar" src="{{ profil.image.url}}" />
-                        <h2 class="dev__name">{{profil.name}}</h2>
-                        <p class="dev__title">{{profil.info}}</p>
-                        <p class="dev__location">{{profil.location}}</p>
+                        <h2 class="dev__name">{{account.name}}</h2>
+                        <p class="dev__title">{{account.info}}</p>
+                        <p class="dev__location">{{account.location}}</p>
                         <ul class="dev__social">
-                            {% if profil.social_github %}
+                            {% if account.social_github %}
                             <li>
-                                <a title="Github" href="{{profil.social_github}}" target="_blank"><i class="fa-brands fa-github"></i></a>
+                                <a title="Github" href="{{ account.social_github }}" target="_blank"><i class="fa-brands fa-github"></i></a>
                             </li>
                             {% endif %}
-                            {% if profil.social_facebook %}
+                            {% if account.social_facebook %}
                             <li>
-                                <a title="Facebook" href="profil.social_facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                                <a title="Facebook" href="{{ account.social_facebook }}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
                             </li>
                             {% endif %}
-                            {% if profil.social_youtube %}
+                            {% if account.social_youtube %}
 
                             <li>
-                                <a title="Youtube" href="profil.social_youtube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                                <a title="Youtube" href="{{ account.social_youtube }}" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                             </li>
                             {% endif %}
-                            {% if profil.social_instagram %}
+                            {% if account.social_instagram %}
                             <li>
-                                <a title="Instagram" href="profil.social_instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                <a title="Instagram" href="{{ account.social_instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                             </li>
                             {% endif %}
                         </ul>
@@ -43,7 +43,7 @@
                 <div class="devInfo">
                     <h3 class="devInfo__title">Men haqimda</h3>
                     <p class="devInfo__about">
-                        {{profil.bio}}
+                        {{account.bio}}
                     </p>
                 </div>
                 <div class="settings">
@@ -52,7 +52,7 @@
                         qo'shish</a>
                 </div>
                 <table class="settings__table">
-                    {% for skill in profil.skill.all %}
+                    {% for skill in account.skill.all %}
                     <tr>
                         <td class="settings__tableInfo">
                             <h4>{{skill.name}}</h4>
@@ -76,7 +76,7 @@
                 </div>
 
                 <table class="settings__table">
-                    {% for project in profil.project_set.all %}
+                    {% for project in account.project_set.all %}
                     <tr>
                         <td class="settings__thumbnail">
                             <a href="{% url 'project' project.id %}"><img src="{{project.image.url}}"
@@ -89,11 +89,8 @@
                             </p>
                         </td>
                         <td class="settings__tableActions">
-                            <a class="tag tag--pill tag--main settings__btn" href="#"><i class="im im-edit"></i>
-                                O'zgartirish</a>
-                            <a class="tag tag--pill tag--main settings__btn" href="#"><i
-                                    class="im im-x-mark-circle-o"></i>
-                                O'chirish</a>
+                            <a class="tag tag--pill tag--main settings__btn" href="{% url 'project_edit' project.id %}"><i class="im im-edit"></i>O'zgartirish</a>
+                            <a class="tag tag--pill tag--main settings__btn" href="{% url 'project_delete' project.id %}"><i class="im im-x-mark-circle-o"></i>O'chirish</a>
                         </td>
                     </tr>
                     {% endfor %}

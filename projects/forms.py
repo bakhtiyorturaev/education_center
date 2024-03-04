@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Project
+from .models import Project, Comment
 
 
 class ProjectForm(ModelForm):
@@ -18,3 +18,9 @@ class ProjectForm(ModelForm):
 
         for key, field in self.fields.items():
             field.widget.attrs.update({"class": "input input--text"})
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['message', 'user', 'project']

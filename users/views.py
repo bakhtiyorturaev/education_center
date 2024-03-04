@@ -103,12 +103,12 @@ def register_user(request):
 @login_required(login_url='login')
 def account(request):
     try:
-        profil = Profil.objects.get(user=request.user)
+        account = Profil.objects.get(user=request.user)
     except Profil.DoesNotExist:
-        messages.error(request, 'profil malumotlari topilmadi')
+        messages.error(request, 'account malumotlari topilmadi')
         return redirect('projects')
     context = {
-        "profil": profil
+        "account": account
     }
     return render(request, "users/account.html", context)
 
@@ -129,9 +129,7 @@ def account_edit(request):
     return render(request, "users/account_edit.html", context)
 
 
-login_required(login_url='login')
-
-
+@login_required(login_url='login')
 def skills_add(request):
     if request.method == "POST":
         form = SkillCreationForm(request.POST)
@@ -170,4 +168,3 @@ def skill_delete(request, skill_id):
     skill = get_object_or_404(Skill, id=skill_id)
     skill.delete()
     return redirect('account')
-

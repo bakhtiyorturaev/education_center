@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import ProjectForm
@@ -51,7 +52,8 @@ def project_add(request):
             project = form.save(commit=False)
             project.user = Profil.objects.get(user=request.user)
             project.save()
-            return redirect('projects')
+            messages.success(request, "Loyiga qo'shildi")
+            return redirect('account')
     form = ProjectForm()
     context = {
         "form": form
@@ -68,16 +70,40 @@ def project_edit(request, id):
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('projects')
+            messages.success(request, "Loyiga o'zgartirildi")
+            return redirect('account')
 
     context = {
         "form": form
     }
-    return render(request, "projects/project_add.html", context)
+    return render(request, "projects/project_edit.html", context)
 
 
 @login_required(login_url='login')
 def project_delete(request, id):
     project = Project.objects.get(id=id)
     project.delete()
-    return redirect('projects')
+    messages.success(request, "Loyiga o'chirildi")
+    return redirect('account')
+
+
+from django.http import HttpResponse
+from .forms import CommentForm
+
+
+def add_comment(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('project')
+    else:
+        form = CommentForm()
+
+    return render(request, 'projects/project.html', {'form': form})
+
+
+def view_comments(request):
+    comments = Comment.objects.all()
+    return render(request, 'projects/project.html', {'comments': comments})
+

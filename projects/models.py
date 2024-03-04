@@ -1,14 +1,13 @@
-from email.policy import default
 import uuid
 from django.db import models
 from users.models import Profil
-# Create your models here.
+from django.contrib.auth.models import User
 
 
 class Project(models.Model):
     user = models.ForeignKey(Profil, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=300)
-    description = models.TextField(null=True, blank=True) #default=""
+    description = models.TextField(null=True, blank=True)
     image = models.ImageField(default="default.png")
     demo_link = models.CharField(max_length=400, null=True, blank=True)
     source_link = models.CharField(max_length=400, null=True, blank=True)
@@ -47,3 +46,11 @@ class Tag(models.Model):
         return self.name
 
 
+class Comment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    message = models.TextField()
+    project = models.ForeignKey('projects.Project', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id)

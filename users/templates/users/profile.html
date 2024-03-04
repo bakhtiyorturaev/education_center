@@ -13,29 +13,29 @@
                         <p class="dev__title">{{ user.info }}</p>
                         <p class="dev__location">{{ user.location }}</p>
                         <ul class="dev__social">
-                            {% if user.social_github %}
+                            {% if profil.user.social_github %}
                             <li>
                                 <a title="Github" href="{{ user.social_github }}" target="_blank"><i class="im im-github"></i></a>
                             </li>
                             {% endif %}
-                            {% if user.social_facebook %}
+                            {% if profil.user.social_facebook %}
                             <li>
                                 <a title="Facebook" href="{{ user.social_facebook }}" target="_blank"><i class="im im-facebook"></i></a>
                             </li>
                             {% endif %}
-                            {% if user.social_youtube %}
+                            {% if profil.user.social_youtube %}
 
                             <li>
                                 <a title="Youtube" href="{{ user.social_youtube }}" target="_blank"><i class="im im-youtube"></i></a>
                             </li>
                             {% endif %}
-                            {% if user.social_instagram %}
+                            {% if profil.user.social_instagram %}
                             <li>
                                 <a title="Instagram" href="{{ user.social_instagram }}" target="_blank"><i class="im im-instagram"></i></a>
                             </li>
                             {% endif %}
                         </ul>
-                        <a href="mailto:{{ user.email }}" class="btn btn--sub btn--lg">Habar jo'nating </a>
+                        <a href="mailto:{{ user.email }}" class="btn btn--sub btn--lg">Emailga Habar jo'natish </a>
                     </div>
                 </div>
             </div>
