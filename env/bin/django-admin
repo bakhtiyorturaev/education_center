@@ -1,4 +1,4 @@
-#!/home/baxtiyor/Desktop/a/django-beginner/env/bin/python3
+#!/home/baxtiyor/Desktop/education_center/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
