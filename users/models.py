@@ -16,7 +16,7 @@ class Profil(models.Model):
     social_instagram = models.CharField(max_length=200, null=True, blank=True)
     social_telegram = models.CharField(max_length=200, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="media/profiles", default="media/default_profile.webp")
+    image = models.ImageField(upload_to="profiles", default="media/default_profile.webp")
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self) -> str:
