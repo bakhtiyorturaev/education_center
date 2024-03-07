@@ -79,9 +79,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 import dj_database_url
-DATABASE_URL = os.getenv('DATABASE_URL')
 DATABASES = {
-    'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+    'default': dj_database_url.parse('postgres://baxtiyor:IvAkAylEDHM9WhvrfBgv08aVL2nhfAji@dpg-cnkpe60l6cac73a7ocf0-a.singapore-postgres.render.com/edu_center_gratuates')
 
 }
 
