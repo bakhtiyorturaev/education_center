@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 import dj_database_url
 
-DATABASE_URL='postgres://baxtiyor:IvAkAylEDHM9WhvrfBgv08aVL2nhfAji@dpg-cnkpe60l6cac73a7ocf0-a/edu_center_gratuates'
 DATABASES = {
-    'default': dj_database_url.parse('DATABASE_URL')
+    'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+
 }
 
 # Password validation
