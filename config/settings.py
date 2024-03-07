@@ -78,6 +78,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+import dj_database_url
 
 DATABASE_URL='postgres://baxtiyor:IvAkAylEDHM9WhvrfBgv08aVL2nhfAji@dpg-cnkpe60l6cac73a7ocf0-a/edu_center_gratuates'
 DATABASES = {
