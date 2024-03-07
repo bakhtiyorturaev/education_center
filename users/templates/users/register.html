@@ -12,8 +12,8 @@
             <a href="{% url 'profiles' %}">
                 <img src="{% static 'images/icon.svg' %}" alt="icon" />
             </a>
-            <h3>Account SignUp</h3>
-            <p>Create a new developer account</p>
+            <h3>Ro'yxatdan o'tish</h3>
+            <p>Yangi dasturchi hisobingiznii yarating</p>
         </div>
 
         <form action="{% url 'register' %}" method="POST" class="form auth__form">
@@ -28,12 +28,12 @@
             {% endfor %}
 
             <div class="auth__actions">
-                <input class="btn btn--sub btn--lg" type="submit" value="Sign  In" />
+                <input class="btn btn--sub btn--lg" type="submit" value="Ro'yxadan o'tish" />
             </div>
         </form>
         <div class="auth__alternative">
-            <p>Already have an Account?</p>
-            <a href="{% url 'login' %}">Log In</a>
+            <p>Hisobingiz allaqachon mavjudmi?</p>
+            <a href="{% url 'login' %}">KIRISH</a>
         </div>
     </div>
 </div>

@@ -8,34 +8,39 @@
             <div class="column column--1of3">
                 <div class="card text-center">
                     <div class="card__body dev">
-                        <img class="avatar avatar--xl" src="{{ user.image.url }}" />
-                        <h2 class="dev__name">{{ user }}</h2>
+                        <img class="avatar avatar--xl" src="{{ user.image.url }}"/>
+                        <h2 class="dev__name">{{ user.name }}</h2>
                         <p class="dev__title">{{ user.info }}</p>
                         <p class="dev__location">{{ user.location }}</p>
                         <ul class="dev__social">
-                            {% if profil.user.social_github %}
+                            {% if user.social_github %}
                             <li>
-                                <a title="Github" href="{{ user.social_github }}" target="_blank"><i class="im im-github"></i></a>
+                                <a title="Github" href="{{ user.social_github }}" target="_blank"><i class="fa-brands fa-github"></i></a>
                             </li>
                             {% endif %}
-                            {% if profil.user.social_facebook %}
+                            {% if account.social_facebook %}
                             <li>
-                                <a title="Facebook" href="{{ user.social_facebook }}" target="_blank"><i class="im im-facebook"></i></a>
+                                <a title="Linkedin" href="{{ user.social_linkedin }}" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                             </li>
                             {% endif %}
-                            {% if profil.user.social_youtube %}
+                            {% if user.social_youtube %}
 
                             <li>
-                                <a title="Youtube" href="{{ user.social_youtube }}" target="_blank"><i class="im im-youtube"></i></a>
+                                <a title="Youtube" href="{{ user.social_youtube }}" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                             </li>
                             {% endif %}
-                            {% if profil.user.social_instagram %}
+                            {% if user.social_instagram %}
                             <li>
-                                <a title="Instagram" href="{{ user.social_instagram }}" target="_blank"><i class="im im-instagram"></i></a>
+                                <a title="Instagram" href="{{ user.social_instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                            </li>
+                            {% endif %}
+                            {% if user.social_telegram %}
+                            <li>
+                                <a title="Telegram" href="{{ user.social_telegram }}" target="_blank"><i class="fa-brands fa-telegram"></i></a>
                             </li>
                             {% endif %}
                         </ul>
-                        <a href="mailto:{{ user.email }}" class="btn btn--sub btn--lg">Emailga Habar jo'natish </a>
+                        <a href="{{ user.email }}" class="btn btn--sub btn--lg">Emailga Habar jo'natish </a>
                     </div>
                 </div>
             </div>
@@ -74,12 +79,12 @@
                         {% for project in user.project_set.all %}
                         <div class="column">
                             <div class="card project">
-                                <a href="single-project.html" class="project">
+                                <a href="{% url 'project' project.id %}" class="project">
                                     <img class="project__thumbnail" src="{{project.image.url}}"
                                         alt="project thumbnail" />
                                     <div class="card__body">
                                         <h3 class="project__title">{{project.title}}</h3>
-                                        <p><a class="project__author" href="profile.html">{{user}}</a></p>
+                                        <p><a class="project__author" href="{% url 'profile' id=user.id %}">{{user}}</a></p>
                                         <p class="project--rating">
                                             <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Ijobiy baho
                                             ({{project.vote_count}} Ovoz)

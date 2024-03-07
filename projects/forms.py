@@ -6,12 +6,11 @@ from .models import Project, Comment
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields = ['title', 'description', 'image', 'demo_link', 'source_link', 'vote_count', 'vote_ratio', 'tag']
+        fields = ['title', 'description', 'image', 'demo_link', 'source_link', 'vote_count', 'vote_ratio']
 
-        widgets = {
-            'tag': forms.CheckboxSelectMultiple()
-        }
-
+        # widgets = {
+        #     'tag': forms.CheckboxSelectMultiple()
+        # }
 
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)

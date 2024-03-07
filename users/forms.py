@@ -10,7 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2']
         labels = {
             'first_name': "Ism",
-            'last_name': "Sharif",
+            'last_name': "Familiya",
             'email': "Elektron manzil",
             'username': "Login"
         }
@@ -25,8 +25,8 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomProfilCreationForm(ModelForm):
     class Meta:
         model = Profil
-        fields = ['name', 'email', 'info', 'location', 'bio', 'social_github', 'social_facebook', 'social_youtube',
-                  'social_instagram', 'image']
+        fields = ['name', 'email', 'info', 'location', 'bio', 'social_github', 'social_linkedin', 'social_youtube',
+                  'social_instagram', 'social_telegram', 'image']
 
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)

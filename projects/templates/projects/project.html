@@ -1,7 +1,4 @@
 {% extends "main.html" %}
-
-
-
 {% block content %}
 
 <main class="singleProject my-md">
@@ -17,13 +14,12 @@
                     {% endfor %}
 
                 </div>
-                <a class="singleProject__liveLink" href="#" target="_blank"><i class="im im-external-link"></i>Source
-                    Code
-                </a>
+                <a class="singleProject__liveLink" href="#" target="_blank"><i class="im im-external-link"></i>Source Code</a>
             </div>
+
             <div class="column column--2of3">
                 <img class="singleProject__preview" src="{{project.image.url}}" alt="portfolio thumbnail" />
-                <a href="{% url 'profile' project.user.id %}" class="singleProject__developer">{{ project.user }} haqida</a>
+                <a href="{% url 'profile' project.user.id %}" class="singleProject__developer">Loyihachi {{ project.user | upper }} </a>
                 <h2 class="singleProject__title">{{project.title}}</h2>
                 <h3 class="singleProject__subtitle">Loyiha haqida</h3>
                 <div class="singleProject__info">
@@ -35,27 +31,31 @@
                     <h5 class="project--rating">
                         {{project.vote_ratio}}% Ijobiy baho ({{project.vote_count}} Ovoz)
                     </h5>
-
                    <form class="form" action="{% url 'add_comment' %}" method="POST">
-                        {% csrf_token %}
+                   {% csrf_token %}
                         <!-- Matn maydoni -->
                         <div class="form__field">
                             <label for="formInput#textarea">Izohlar: </label>
-                            <textarea class="input input--textarea" name="message" id="formInput#textarea"
-                                placeholder="Izohni shu yerga yozing..."></textarea>
+                            <textarea class="input input--textarea" name="message" id="formInput#textarea" placeholder="Izohlarni bu yerga yozing..."></textarea>
                         </div>
-                        <input class="btn btn--sub btn--lg" type="submit" value="Izohlar" />
+                        <!-- Proyekt ID -->
+                        <input type="hidden" name="id" value="{{ project.id }}">
+                        <input class="btn btn--sub btn--lg" type="submit" value="Saqlash" />
                    </form>
+
                     <div class="commentList">
-                        {% for comment in comments %}
+                        {% for comment in user_comments %}
                         <div class="comment">
-                            <a href="{% url 'profile' comment.user.id %}"><img class="avatar avatar--md" src="{{ comment.user.image.url }}" alt="user" /></a>
+                            <a href="{% url 'profile' comment.user.id %}">
+                                <img class="avatar avatar--md" src="{{ comment.user.image.url }}" alt="user" />
+                            </a>
                             <div class="comment__details"><a href="{% url 'profile' comment.user.id %}" class="comment__author">{{ comment.user.username }}</a>
-                                <p class="comment__info">{comment.messages}</p>
+                                <p class="comment__info">{{ comment.message }}</p>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
+
                 </div>
             </div>
         </div>

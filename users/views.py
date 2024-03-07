@@ -1,15 +1,13 @@
-from email import message
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Profil, Skill
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from .models import Profil, Skill
 
 
-# Create your views here.
-
+@login_required(login_url="login")
 def profiles(request):
     profile = request.GET.get('q')
     users = Profil.objects.all()
@@ -36,12 +34,13 @@ def profiles(request):
     return render(request, 'users/profiles.html', context)
 
 
+@login_required(login_url='login')
 def profile(request, id):
     user = Profil.objects.get(id=id)
     skills = Skill.objects.filter(user=user)
     context = {
-        "user": user,
-        "skills": skills
+        "skills": skills,
+        "user": user
     }
     return render(request, 'users/profile.html', context)
 
@@ -60,7 +59,7 @@ def login_user(request):
             messages.success(request, "Tizimga hush kelibsiz")
             return redirect('profiles')
         else:
-            messages.error(request, 'Bunday login va parol mavjud emas')
+            messages.error(request, 'Bunday login yoki parol mavjud emas')
 
     return render(request, "users/login.html")
 
@@ -92,10 +91,10 @@ def register_user(request):
 
             login(request, user)
 
-            messages.success(request, "Foydalnuvchi ro'yxatdan o'tdi")
+            messages.success(request, "Siz ro'yxatdan o'tdingiz!")
             return redirect('profiles')
         else:
-            messages.error(request, "Foydalnuvchi ro'yxatdan o'tmadi")
+            messages.error(request, "Foydalnuvchi ro'yxatdan o'tmadi!")
 
     return render(request, "users/register.html", context)
 
@@ -117,12 +116,14 @@ def account(request):
 def account_edit(request):
     user = request.user
     profil = Profil.objects.get(user=user)
-    form = CustomProfilCreationForm(instance=profil.user)
     if request.method == "POST":
         form = CustomProfilCreationForm(request.POST, request.FILES, instance=profil)
         if form.is_valid():
             form.save()
             return redirect('account')
+    else:
+        form = CustomProfilCreationForm(instance=profil)
+
     context = {
         "form": form
     }

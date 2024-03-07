@@ -6,11 +6,16 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
 
+@login_required(login_url="login")
 def projects(request):
-    projects_list = Project.objects.filter(project_review__isnull=True)
+    project = request.GET.get('q')
+    projects_list = Project.objects.filter(project_review__isnull=True).order_by('-created')
+
+    if project:
+        projects_list = projects_list.filter(title__icontains=project)
 
     page_number = request.GET.get('page')
-    paginator = Paginator(projects_list, 3)
+    paginator = Paginator(projects_list, 6)
     projects = paginator.get_page(page_number)
 
     reviews_p = Review.objects.filter(value="+")
@@ -34,6 +39,7 @@ def projects(request):
     return render(request, "projects/projects.html", context)
 
 
+@login_required(login_url="login")
 def project(request, id):
     project = Project.objects.get(id=id)
     tags = project.tag.all()
@@ -87,23 +93,27 @@ def project_delete(request, id):
     return redirect('account')
 
 
-from django.http import HttpResponse
-from .forms import CommentForm
-
-
+@login_required(login_url='login')
 def add_comment(request):
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('project')
+        message = request.POST.get('message')
+        project_id = request.POST.get('id')
+        if message and project_id:
+            user = request.user
+            project = Project.objects.get(id=project_id)
+            comment = Comment.objects.create(message=message, project=project, user=user)
+            messages.success(request, 'Izoh muvaffaqiyatli qo\'shildi.')
+        else:
+            messages.error(request, 'Izoh bo\'sh bo\'lishi mumkin emas.')
+        return redirect('projects')
     else:
-        form = CommentForm()
-
-    return render(request, 'projects/project.html', {'form': form})
+        return redirect('project')
 
 
+# @login_required(login_url='login')
 def view_comments(request):
-    comments = Comment.objects.all()
-    return render(request, 'projects/project.html', {'comments': comments})
-
+    user_comments = Comment.objects.filter(user=request.user)
+    context = {
+        'user_comments': user_comments
+    }
+    return render(request, 'projects/project.html', context=context)

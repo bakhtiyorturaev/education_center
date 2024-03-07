@@ -8,30 +8,35 @@
             <div class="column column--1of3">
                 <div class="card text-center">
                     <div class="card__body dev">
-                        <img class="avatar avatar--xl dev__avatar" src="{{ profil.image.url}}" />
+                        <img class="avatar avatar--xl dev__avatar" src="{{ account.image.url}}" />
                         <h2 class="dev__name">{{account.name}}</h2>
                         <p class="dev__title">{{account.info}}</p>
                         <p class="dev__location">{{account.location}}</p>
                         <ul class="dev__social">
                             {% if account.social_github %}
                             <li>
-                                <a title="Github" href="{{ account.social_github }}" target="_blank"><i class="fa-brands fa-github"></i></a>
+                                <a title="Github" href="{{ account.social_github }}" target="_blank"><i class="fa-brands fa-github" style="color: black;"></i></a>
                             </li>
                             {% endif %}
                             {% if account.social_facebook %}
                             <li>
-                                <a title="Facebook" href="{{ account.social_facebook }}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                                <a title="Linkedin" href="{{ account.social_linkedin }}" target="_blank"><i class="fa-brands fa-linkedin" style="color: black;"></i></a>
                             </li>
                             {% endif %}
                             {% if account.social_youtube %}
 
                             <li>
-                                <a title="Youtube" href="{{ account.social_youtube }}" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                                <a title="Youtube" href="{{ account.social_youtube }}" target="_blank"><i class="fa-brands fa-youtube" style="color: black;"></i></a>
                             </li>
                             {% endif %}
                             {% if account.social_instagram %}
                             <li>
-                                <a title="Instagram" href="{{ account.social_instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                <a title="Instagram" href="{{ account.social_instagram }}" target="_blank"><i class="fa-brands fa-instagram" style="color: black;"></i></a>
+                            </li>
+                            {% endif %}
+                            {% if account.social_telegram %}
+                            <li>
+                                <a title="Telegram" href="{{ account.social_telegram }}" target="_blank"><i class="fa-brands fa-telegram" style="color: black;"></i></a>
                             </li>
                             {% endif %}
                         </ul>
