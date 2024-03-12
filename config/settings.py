@@ -78,7 +78,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 import dj_database_url
 DATABASES = {
-    'default': dj_database_url.parse('postgres://baxtiyor:IvAkAylEDHM9WhvrfBgv08aVL2nhfAji@dpg-cnkpe60l6cac73a7ocf0-a.singapore-postgres.render.com/edu_center_gratuates')
+    'default': dj_database_url.parse('postgres://baxtiyor:IvAkAylEDHM9WhvrfBgv08aVL2nhfAji@dpg-cnkpe60l6cac73a7ocf0-a'
+                                     '.singapore-postgres.render.com/edu_center_gratuates')
 
 }
 
@@ -119,7 +120,7 @@ STATIC_ROOT = BASE_DIR / 'static'
 # STATICFILES_DIRS = []
 
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
