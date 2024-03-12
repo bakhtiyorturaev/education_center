@@ -8,7 +8,7 @@ class Project(models.Model):
     user = models.ForeignKey(Profil, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=300)
     description = models.TextField(null=True, blank=True)
-    image = models.ImageField(default="media/default_project.jpg", upload_to='media/projects')
+    image = models.ImageField(default="media/default_project.jpg", upload_to='projects')
     demo_link = models.CharField(max_length=400, null=True, blank=True)
     source_link = models.CharField(max_length=400, null=True, blank=True)
     vote_count = models.IntegerField(default=0)
